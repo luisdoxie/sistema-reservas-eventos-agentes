@@ -1,0 +1,12 @@
+Auditoría de reservas-eventos-harness — 2026-11-17 12:58
+  TODO x5  ./.agents/AGENTS.md
+  TODO x4  ./.agents/memory/ESTADO.md
+  TODO x3  ./.agents/memory/IDENTIDAD.md
+  TODO x3  ./.agents/memory/PREFERENCIAS.md
+  TODO x3  ./.agents/PERMISSIONS.md
+  TODO x6  ./.agents/RUNTIME.md
+  TODO x3  ./.agents/TOOLS.md
+  TODO x5  ./AGENTS.md
+  TODO x9  ./HANDOFF.md
+Resumen: faltan=0  TODO=41  lecciones=0  lineas_hooks.log=0
+ESTADO: incompleto

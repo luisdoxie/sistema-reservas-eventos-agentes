@@ -1,0 +1,50 @@
+# HANDOFF — Traspaso
+
+> **Fecha de este estado:** 2026-11-17 · **Quién lo escribió:** Claude Code (agente), en sesión con la persona responsable; pendiente de su revisión
+> Si lo lees más de 2 semanas después de esa fecha, verificá antes de creer.
+> Criterio: si mañana no sabrías por dónde seguir, este archivo está incompleto.
+
+## Qué es el proyecto (1 línea)
+Sitio web para registrar eventos y ofrecer servicios en línea: el usuario reserva y recibe un comprobante con sus datos; un administrador gestiona la oferta (Flask + SQLite + frontend en HTML/JS puro).
+
+## Cómo correrlo
+Todos los comandos, en PowerShell y desde `backend/`.
+
+| Qué | Comando | ¿Verificado? (cómo) |
+|-----|---------|---------------------|
+| Instalar | `python -m venv venv; .\venv\Scripts\Activate.ps1; pip install -r requirements.txt -r requirements-dev.txt; if (-not (Test-Path .env)) { Copy-Item .env.example .env }` | Sí, en Git Bash el 2026-11-17: `venv` creado en esta carpeta; Flask 3.1.3, Werkzeug 3.1.9, Jinja2 3.1.6 y ruff 0.17.5 instalados |
+| Ejecutar | `python app.py` → http://127.0.0.1:5000 (panel en `/admin.html`) | Sí, el 2026-11-17 desde esta carpeta (puerto 5057, base temporal): `/` y `/admin.html` 200, 3 eventos, reserva 201 con total, consulta con correo correcto 200 y con correo incorrecto 404, admin sin token 401 y con token 200. Interfaz probada en el navegador con el mismo código en el proyecto anterior |
+| Tests | `python -m unittest discover -s tests` | Sí: 20 pruebas OK el 2026-11-17, con el `venv` de esta carpeta |
+| Lint | `python -m ruff check . --exclude venv` (Python) y `node --check ../frontend/*.js` (sintaxis del JavaScript) | Sí el 2026-11-17: ruff "All checks passed" (se corrigieron 3 observaciones de estilo) y los 4 archivos `.js` pasan `node --check`. No hay linter de estilo para el JavaScript |
+
+Además: `sh .agents/tests/test-hooks.sh` (desde la raíz) → 6 OK, 0 fallas el 2026-11-17, en Git Bash.
+
+**Acceso desde otro equipo:** `127.0.0.1` solo sirve en la máquina donde corre el servidor. Para que otros equipos de la red entren, pon `APP_HOST=0.0.0.0` en `backend/.env` y usa `http://<IP-de-esta-máquina>:5000`. Verificado el 2026-11-17 con la IP de red de esta máquina; **no se probó desde un segundo equipo** ni se revisó el firewall de Windows, que puede bloquear el puerto. Sin HTTPS: el token de administrador viaja sin cifrar, así que solo en una red de confianza. Si llevas el proyecto a otra máquina, crea ahí un `venv` nuevo; el de esta carpeta no es portable.
+
+## Estado real hoy
+| Área | Estado | Verificado cómo |
+|------|--------|-----------------|
+| Catálogo de eventos y servicios, filtro por tipo | Funciona | Navegador (proyecto anterior) |
+| Reserva con descuento atómico de cupos, máximo 10 por reserva | Funciona | Pruebas del backend + navegador |
+| Comprobante (código `RES-XXXXXXXX`, titular, evento, total) imprimible | Funciona | Navegador |
+| Consulta del comprobante con código y correo (`POST /api/reservas/consultar`) | Funciona; el correo no va en la URL | Pruebas + navegador + log del servidor sin el correo |
+| Panel `/admin.html` con token: registrar, ajustar cupos, ocultar y ver reservas | Funciona | Navegador |
+| Cuentas de usuario, pagos, envío del comprobante por correo, cancelación de reservas | No existe | — |
+| Despliegue y producción | No existe; solo servidor de desarrollo de Flask | — |
+| Pruebas del frontend | No hay automatizadas | Solo prueba manual |
+
+## Próximos pasos (en orden)
+1. [x] Crear `backend/venv`, instalar dependencias, correr tests y lint, y arrancar el servidor en esta carpeta (hecho el 2026-11-17).
+2. [ ] La persona confirma `memory/IDENTIDAD.md` y `memory/PREFERENCIAS.md` (son borradores).
+3. [x] Regla movida de "preguntar" a "permitir" decidida y justificada en `.agents/PERMISSIONS.md`: tests y lint locales (2026-11-17).
+4. [ ] Agregar al menos una skill propia que el proyecto necesite de verdad (hoy solo está `ciclo-de-mejora`).
+5. [ ] Hacer `git init` y los commits (aún no es un repositorio Git).
+6. [ ] Correr un ciclo completo (skill `ciclo-de-mejora`) en una tarea chica y guardar el reporte en `.harness/reportes/`.
+7. [ ] Escribir una propuesta de mejora al template en `.harness/propuestas/`.
+8. [ ] Correr `harness audit` y guardar la auditoría "después" en `.harness/auditorias/`.
+
+## Preguntas abiertas para el humano
+- ¿Cuenta como evidencia el `hooks.log` actual? Sus líneas vienen del test de hooks, no de una sesión real de Claude Code (no hay línea `stop`).
+- ¿Se agregan cuentas de usuario, correo, cancelación o pagos? ¿Y dónde se desplegaría?
+- ¿La moneda por defecto debe seguir siendo COP? Se cambia en `MONEDA` de `frontend/api.js`.
+- ¿Se mantiene o se borra el proyecto anterior `reservas-eventos`, que usa una estructura propia que no es la oficial?

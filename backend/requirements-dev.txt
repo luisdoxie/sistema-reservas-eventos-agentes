@@ -1,0 +1,2 @@
+# Herramientas de desarrollo (no se necesitan para correr la app)
+ruff>=0.6

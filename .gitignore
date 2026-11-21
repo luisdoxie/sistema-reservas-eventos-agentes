@@ -1,0 +1,7 @@
+.env
+*.pem
+.agents/hooks.log
+*.db
+venv/
+__pycache__/
+*.pyc

@@ -1,0 +1,4 @@
+Auditoría de . — 2026-11-17 13:02
+  TODO x2  ./.agents/PERMISSIONS.md
+Resumen: faltan=0  TODO=2  lecciones=5  lineas_hooks.log=6
+ESTADO: incompleto

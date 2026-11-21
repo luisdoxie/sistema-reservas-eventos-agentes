@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Administración de reservas</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <header class="sitio">
+    <div class="interior">
+      <strong>Administración</strong>
+      <nav><a href="index.html">Ir al sitio</a></nav>
+    </div>
+  </header>
+  <main>
+    <form id="form-token" class="vertical tarjeta" style="max-width:420px">
+      <label>Token de administrador
+        <input name="token" type="password" required autocomplete="off">
+      </label>
+      <div id="mensaje-token"></div>
+      <div class="acciones"><button class="principal" type="submit">Entrar</button></div>
+    </form>
+
+    <section id="panel" hidden>
+      <div class="acciones" style="justify-content:space-between">
+        <h1 style="margin:0">Panel</h1>
+        <button type="button" id="salir">Salir</button>
+      </div>
+
+      <h2>Registrar evento o servicio</h2>
+      <form id="form-evento" class="vertical tarjeta">
+        <div class="dos">
+          <label>Nombre <input name="nombre" required maxlength="120"></label>
+          <label>Tipo
+            <select name="tipo"><option value="evento">Evento</option><option value="servicio">Servicio</option></select>
+          </label>
+        </div>
+        <div class="dos">
+          <label>Fecha y hora (obligatoria en eventos) <input name="fecha" type="datetime-local"></label>
+          <label>Lugar <input name="lugar" maxlength="150"></label>
+        </div>
+        <div class="dos">
+          <label>Precio (entero, 0 = gratis) <input name="precio" type="number" min="0" step="1" value="0" required></label>
+          <label>Cupos <input name="cupos" type="number" min="0" step="1" value="10" required></label>
+        </div>
+        <label>Descripción <textarea name="descripcion" rows="3" maxlength="1000"></textarea></label>
+        <div id="mensaje-evento"></div>
+        <div class="acciones"><button class="principal" type="submit">Registrar</button></div>
+      </form>
+
+      <h2>Eventos y servicios</h2>
+      <div id="mensaje-lista"></div>
+      <div class="tabla-scroll"><table>
+        <thead><tr><th>Nombre</th><th>Tipo</th><th>Fecha</th><th>Precio</th><th>Cupos</th><th>Estado</th></tr></thead>
+        <tbody id="tabla-eventos"></tbody>
+      </table></div>
+
+      <h2>Reservas recibidas</h2>
+      <div class="tabla-scroll"><table>
+        <thead><tr><th>Código</th><th>Evento</th><th>Titular</th><th>Contacto</th><th>Cant.</th><th>Total</th><th>Emitida</th></tr></thead>
+        <tbody id="tabla-reservas"></tbody>
+      </table></div>
+    </section>
+  </main>
+  <script src="api.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

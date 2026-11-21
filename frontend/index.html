@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reservas de eventos y servicios</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <header class="sitio">
+    <div class="interior">
+      <strong>Reservas</strong>
+      <nav>
+        <a href="#catalogo">Eventos y servicios</a>
+        <a href="#consulta">Mi comprobante</a>
+        <a href="admin.html">Administración</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Reserva tu lugar en línea</h1>
+    <p class="suave">Elige un evento o servicio, completa tus datos y recibe al instante tu comprobante de reserva.</p>
+
+    <h2 id="catalogo">Eventos y servicios</h2>
+    <div class="filtros" role="group" aria-label="Filtrar por tipo">
+      <button type="button" data-filtro="todos" aria-pressed="true">Todos</button>
+      <button type="button" data-filtro="evento" aria-pressed="false">Eventos</button>
+      <button type="button" data-filtro="servicio" aria-pressed="false">Servicios</button>
+    </div>
+    <div id="mensaje-catalogo"></div>
+    <div id="catalogo-lista" class="rejilla" aria-live="polite"></div>
+
+    <h2 id="consulta">Consulta tu comprobante</h2>
+    <form id="form-consulta" class="vertical tarjeta" style="max-width:520px">
+      <label>Código de reserva
+        <input name="codigo" required placeholder="RES-XXXXXXXX" autocomplete="off">
+      </label>
+      <label>Correo con el que reservaste
+        <input name="correo" type="email" required autocomplete="email">
+      </label>
+      <div class="acciones"><button class="principal" type="submit">Ver comprobante</button></div>
+    </form>
+  </main>
+
+  <dialog id="dialogo-reserva" aria-labelledby="titulo-reserva">
+    <form id="form-reserva" class="vertical" novalidate>
+      <h2 id="titulo-reserva" style="margin-top:0">Reservar</h2>
+      <p id="resumen-reserva" class="suave"></p>
+      <input type="hidden" name="evento_id">
+      <div class="dos">
+        <label>Cantidad
+          <input name="cantidad" type="number" min="1" max="10" value="1" required>
+        </label>
+        <label>Total estimado
+          <input id="total-reserva" readonly tabindex="-1">
+        </label>
+      </div>
+      <label>Nombre completo
+        <input name="nombre" required autocomplete="name" maxlength="100">
+      </label>
+      <div class="dos">
+        <label>Documento
+          <input name="documento" required maxlength="20">
+        </label>
+        <label>Teléfono
+          <input name="telefono" type="tel" required autocomplete="tel">
+        </label>
+      </div>
+      <label>Correo electrónico
+        <input name="correo" type="email" required autocomplete="email" maxlength="120">
+      </label>
+      <div id="mensaje-reserva"></div>
+      <div class="acciones">
+        <button type="button" id="cancelar-reserva">Cancelar</button>
+        <button type="submit" class="principal" id="enviar-reserva">Confirmar reserva</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="api.js"></script>
+  <script src="index.js"></script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": ["Read", "Grep", "Glob", "Bash(ls:*)", "Bash(git status:*)", "Bash(git diff:*)", "Bash(git log:*)",
+              "Bash(python -m unittest:*)", "Bash(python -m ruff check:*)", "Bash(node --check:*)",
+              "Bash(./venv/Scripts/python -m unittest:*)", "Bash(./venv/Scripts/python -m ruff check:*)"],
+    "ask":   ["Bash(npm install:*)", "Bash(pip install:*)", "Bash(git push:*)", "Bash(docker:*)"],
+    "deny":  ["Read(./**/.env)", "Read(./**/*.pem)", "Bash(rm -rf:*)", "Bash(git reset --hard:*)", "Bash(git push --force:*)"]
+  },
+  "hooks": {
+    "SessionStart": [{ "hooks": [{ "type": "command", "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"$CLAUDE_PROJECT_DIR/.agents/hooks/session-start.ps1\"" }] }],
+    "PreToolUse":   [{ "matcher": "*", "hooks": [{ "type": "command", "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"$CLAUDE_PROJECT_DIR/.agents/hooks/pre-tool-use.ps1\"" }] }],
+    "PostToolUse":  [{ "matcher": "*", "hooks": [{ "type": "command", "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"$CLAUDE_PROJECT_DIR/.agents/hooks/post-tool-use.ps1\"" }] }],
+    "Stop":         [{ "hooks": [{ "type": "command", "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"$CLAUDE_PROJECT_DIR/.agents/hooks/stop.ps1\"" }] }]
+  }
+}

@@ -1,0 +1,3 @@
+Auditoría de . — 2026-11-17 13:07
+Resumen: faltan=0  TODO=0  lecciones=5  lineas_hooks.log=11
+ESTADO: completo
