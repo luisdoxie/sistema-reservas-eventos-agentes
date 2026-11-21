@@ -1,6 +1,6 @@
 # HANDOFF — Traspaso
 
-> **Fecha de este estado:** 2026-11-17 · **Quién lo escribió:** Claude Code (agente), en sesión con la persona responsable; pendiente de su revisión
+> **Fecha de este estado:** 2026-11-21 · **Quién lo escribió:** Claude Code (agente), en sesión con la persona responsable; pendiente de su revisión
 > Si lo lees más de 2 semanas después de esa fecha, verificá antes de creer.
 > Criterio: si mañana no sabrías por dónde seguir, este archivo está incompleto.
 
@@ -14,7 +14,7 @@ Todos los comandos, en PowerShell y desde `backend/`.
 |-----|---------|---------------------|
 | Instalar | `python -m venv venv; .\venv\Scripts\Activate.ps1; pip install -r requirements.txt -r requirements-dev.txt; if (-not (Test-Path .env)) { Copy-Item .env.example .env }` | Sí, en Git Bash el 2026-11-17: `venv` creado en esta carpeta; Flask 3.1.3, Werkzeug 3.1.9, Jinja2 3.1.6 y ruff 0.17.5 instalados |
 | Ejecutar | `python app.py` → http://127.0.0.1:5000 (panel en `/admin.html`) | Sí, el 2026-11-17 desde esta carpeta (puerto 5057, base temporal): `/` y `/admin.html` 200, 3 eventos, reserva 201 con total, consulta con correo correcto 200 y con correo incorrecto 404, admin sin token 401 y con token 200. Interfaz probada en el navegador con el mismo código en el proyecto anterior |
-| Tests | `python -m unittest discover -s tests` | Sí: 20 pruebas OK el 2026-11-17, con el `venv` de esta carpeta |
+| Tests | `python -m unittest discover -s tests` | Sí: 21 pruebas OK el 2026-11-21, con el `venv` de esta carpeta |
 | Lint | `python -m ruff check . --exclude venv` (Python) y `node --check ../frontend/*.js` (sintaxis del JavaScript) | Sí el 2026-11-17: ruff "All checks passed" (se corrigieron 3 observaciones de estilo) y los 4 archivos `.js` pasan `node --check`. No hay linter de estilo para el JavaScript |
 
 Además: `sh .agents/tests/test-hooks.sh` (desde la raíz) → 6 OK, 0 fallas el 2026-11-17, en Git Bash.
@@ -24,7 +24,7 @@ Además: `sh .agents/tests/test-hooks.sh` (desde la raíz) → 6 OK, 0 fallas el
 ## Estado real hoy
 | Área | Estado | Verificado cómo |
 |------|--------|-----------------|
-| Catálogo de eventos y servicios, filtro por tipo | Funciona | Navegador (proyecto anterior) |
+| Catálogo de eventos y servicios, filtro por tipo; no lista eventos ya ocurridos (desde 2026-11-21) | Funciona | Navegador (proyecto anterior) + prueba del backend; el cambio de fecha no se probó en el navegador |
 | Reserva con descuento atómico de cupos, máximo 10 por reserva | Funciona | Pruebas del backend + navegador |
 | Comprobante (código `RES-XXXXXXXX`, titular, evento, total) imprimible | Funciona | Navegador |
 | Consulta del comprobante con código y correo (`POST /api/reservas/consultar`) | Funciona; el correo no va en la URL | Pruebas + navegador + log del servidor sin el correo |
@@ -38,8 +38,8 @@ Además: `sh .agents/tests/test-hooks.sh` (desde la raíz) → 6 OK, 0 fallas el
 2. [ ] La persona confirma `memory/IDENTIDAD.md` y `memory/PREFERENCIAS.md` (son borradores).
 3. [x] Regla movida de "preguntar" a "permitir" decidida y justificada en `.agents/PERMISSIONS.md`: tests y lint locales (2026-11-17).
 4. [ ] Agregar al menos una skill propia que el proyecto necesite de verdad (hoy solo está `ciclo-de-mejora`).
-5. [ ] Hacer `git init` y los commits (aún no es un repositorio Git).
-6. [ ] Correr un ciclo completo (skill `ciclo-de-mejora`) en una tarea chica y guardar el reporte en `.harness/reportes/`.
+5. [x] `git init` y commit inicial hechos el 2026-11-21 (rama `main`, sin repositorio remoto). Pendiente: commit del cambio de eventos pasados y `.gitattributes` con `*.sh text eol=lf`, porque Git avisa de conversión LF a CRLF y los hooks `.sh` podrían fallar.
+6. [x] Ciclo completo hecho el 2026-11-21 (catálogo sin eventos pasados); reporte en `.harness/reportes/2026-11-21-eventos-pasados.md`.
 7. [ ] Escribir una propuesta de mejora al template en `.harness/propuestas/`.
 8. [ ] Correr `harness audit` y guardar la auditoría "después" en `.harness/auditorias/`.
 

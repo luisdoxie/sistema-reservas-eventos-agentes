@@ -70,6 +70,15 @@ class TestReservas(Base):
         ev = self.evento(fecha=futuro(-3))
         self.assertEqual(self.reservar(ev["id"]).status_code, 409)
 
+    def test_catalogo_no_ofrece_eventos_pasados_pero_si_servicios_sin_fecha(self):
+        self.evento(nombre="Ya pasó", fecha=futuro(-3))
+        self.evento(nombre="Próximo", fecha=futuro(3))
+        self.evento(nombre="Alquiler", tipo="servicio", fecha=None)
+        nombres = [e["nombre"] for e in self.c.get("/api/eventos").get_json()]
+        self.assertEqual(sorted(nombres), ["Alquiler", "Próximo"])
+        # El panel de administración sigue viendo todo.
+        self.assertEqual(len(self.c.get("/api/admin/eventos", headers=ADMIN).get_json()), 3)
+
     def test_evento_oculto_no_se_reserva(self):
         ev = self.evento()
         self.c.put(f"/api/admin/eventos/{ev['id']}", json={"activo": False}, headers=ADMIN)

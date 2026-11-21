@@ -217,7 +217,12 @@ def create_app(db_path=None, admin_token=None, semilla_demo=None):
 
     @app.get("/api/eventos")
     def listar_eventos():
-        filas = db().execute("SELECT * FROM eventos WHERE activo = 1 ORDER BY fecha IS NULL, fecha, nombre").fetchall()
+        # No se ofrece lo que ya ocurrió (crear_reserva lo rechazaría con 409). Las fechas se guardan como
+        # AAAA-MM-DDTHH:MM, así que se pueden comparar como texto. Los servicios sin fecha siempre se ofrecen.
+        ahora = datetime.now().isoformat(timespec="minutes")
+        filas = db().execute(
+            "SELECT * FROM eventos WHERE activo = 1 AND (fecha IS NULL OR fecha >= ?) ORDER BY fecha IS NULL, fecha, nombre",
+            (ahora,)).fetchall()
         return jsonify([dict(f) for f in filas])
 
     @app.get("/api/eventos/<int:evento_id>")
