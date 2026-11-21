@@ -38,7 +38,7 @@ Además: `sh .agents/tests/test-hooks.sh` (desde la raíz) → 6 OK, 0 fallas el
 2. [ ] La persona confirma `memory/IDENTIDAD.md` y `memory/PREFERENCIAS.md` (son borradores).
 3. [x] Regla movida de "preguntar" a "permitir" decidida y justificada en `.agents/PERMISSIONS.md`: tests y lint locales (2026-11-17).
 4. [ ] Agregar al menos una skill propia que el proyecto necesite de verdad (hoy solo está `ciclo-de-mejora`).
-5. [x] `git init` y commit inicial hechos el 2026-11-21 (rama `main`, sin repositorio remoto). Pendiente: commit del cambio de eventos pasados y `.gitattributes` con `*.sh text eol=lf`, porque Git avisa de conversión LF a CRLF y los hooks `.sh` podrían fallar.
+5. [x] `git init` y commit inicial hechos el 2026-11-21 (rama `main`, sin repositorio remoto). Commits del cambio de eventos pasados y de `.gitattributes` (`*.sh text eol=lf`, para que los hooks `.sh` no queden en CRLF) hechos el 2026-11-21.
 6. [x] Ciclo completo hecho el 2026-11-21 (catálogo sin eventos pasados); reporte en `.harness/reportes/2026-11-21-eventos-pasados.md`.
 7. [ ] Escribir una propuesta de mejora al template en `.harness/propuestas/`.
 8. [ ] Correr `harness audit` y guardar la auditoría "después" en `.harness/auditorias/`.
