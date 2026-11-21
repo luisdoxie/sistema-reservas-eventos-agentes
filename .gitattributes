@@ -1,0 +1,2 @@
+# Los hooks .sh deben quedar siempre con saltos de línea LF; con CRLF fallan en sh.
+*.sh text eol=lf
