@@ -37,14 +37,14 @@ Además: `sh .agents/tests/test-hooks.sh` (desde la raíz) → 6 OK, 0 fallas el
 1. [x] Crear `backend/venv`, instalar dependencias, correr tests y lint, y arrancar el servidor en esta carpeta (hecho el 2026-11-17).
 2. [ ] La persona confirma `memory/IDENTIDAD.md` y `memory/PREFERENCIAS.md` (son borradores).
 3. [x] Regla movida de "preguntar" a "permitir" decidida y justificada en `.agents/PERMISSIONS.md`: tests y lint locales (2026-11-17).
-4. [ ] Agregar al menos una skill propia que el proyecto necesite de verdad (hoy solo está `ciclo-de-mejora`).
+4. [x] Skill propia `verificar-sitio` creada el 2026-11-22 en `.agents/skills/verificar-sitio/` (`SKILL.md` + `humo.sh`). Probada: `humo.sh` 14 OK con el servidor real y base temporal; sus pasos de pruebas y lint también pasan. No verificado: la parte de interfaz en el navegador. Las skills de `.agents/skills/` no aparecen en la lista de skills de Claude Code; para invocarla con `/verificar-sitio` habría que copiarla a `.claude/skills/`.
 5. [x] `git init` y commit inicial hechos el 2026-11-21 (rama `main`, sin repositorio remoto). Commits del cambio de eventos pasados y de `.gitattributes` (`*.sh text eol=lf`, para que los hooks `.sh` no queden en CRLF) hechos el 2026-11-21.
 6. [x] Ciclo completo hecho el 2026-11-21 (catálogo sin eventos pasados); reporte en `.harness/reportes/2026-11-21-eventos-pasados.md`.
 7. [ ] Escribir una propuesta de mejora al template en `.harness/propuestas/`.
 8. [ ] Correr `harness audit` y guardar la auditoría "después" en `.harness/auditorias/`.
 
 ## Preguntas abiertas para el humano
-- ¿Cuenta como evidencia el `hooks.log` actual? Sus líneas vienen del test de hooks, no de una sesión real de Claude Code (no hay línea `stop`).
+- ¿Cuenta como evidencia el `hooks.log` actual? Desde el 2026-11-21 incluye líneas de sesiones reales de Claude Code (`start`, `pre`, `post` y `stop`; ver `RUNTIME.md`). Sigue en `.gitignore`: ¿debe copiarse al repositorio como evidencia?
 - ¿Se agregan cuentas de usuario, correo, cancelación o pagos? ¿Y dónde se desplegaría?
 - ¿La moneda por defecto debe seguir siendo COP? Se cambia en `MONEDA` de `frontend/api.js`.
 - ¿Se mantiene o se borra el proyecto anterior `reservas-eventos`, que usa una estructura propia que no es la oficial?

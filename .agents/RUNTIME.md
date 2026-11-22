@@ -15,3 +15,6 @@
 
 ## Verificación de hooks
 - Fecha: 2026-11-17 · Comando: `.agents/tests/test-hooks.sh` · Resultado: 6 OK, 0 fallas (SO: MINGW64_NT-10.0-26300). Las líneas que dejó en `hooks.log` vienen de este test, no de una sesión real de Claude Code.
+- Fecha: 2026-11-22 · Comando: `sh .agents/tests/test-hooks.sh` (Git Bash) · Resultado: 6 OK, 0 fallas (SO: MINGW64_NT-10.0-26300, Windows 11).
+- Evidencia de sesión real en `.agents/hooks.log` (113 líneas el 2026-11-22): 6 `start session`, 8 `stop session`, 55 `pre` y 44 `post`, de sesiones de Claude Code del 2026-11-21 y 2026-11-22 (ya no solo líneas del test). Hay más `pre` que `post`; probablemente por llamadas bloqueadas o denegadas (el bloqueo de `pre-tool-use` se vio en pantalla dos veces) y alguna en curso, pero no revisé una por una las 11 diferencias. `hooks.log` está en `.gitignore`: la evidencia vive en esta máquina, no en el repositorio.
+- No verificado: la variante PowerShell (`.agents/tests/test-hooks.ps1` y `settings.windows.json`). El 2026-11-22 Claude Code denegó el permiso para ejecutar ese test desde la sesión; hay que correrlo a mano en una terminal.
