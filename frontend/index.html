@@ -4,12 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Reservas de eventos y servicios</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%233b5bdb'/%3E%3Ctext x='16' y='23' font-size='20' font-family='sans-serif' font-weight='700' text-anchor='middle' fill='white'%3ER%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
   <header class="sitio">
     <div class="interior">
-      <strong>Reservas</strong>
+      <strong class="marca"><span class="logo" aria-hidden="true">R</span>Reservas</strong>
       <nav>
         <a href="#catalogo">Eventos y servicios</a>
         <a href="#consulta">Mi comprobante</a>
@@ -19,25 +20,34 @@
   </header>
 
   <main>
-    <h1>Reserva tu lugar en línea</h1>
-    <p class="suave">Elige un evento o servicio, completa tus datos y recibe al instante tu comprobante de reserva.</p>
+    <section class="portada">
+      <h1>Reserva tu lugar en línea</h1>
+      <p class="suave">Elige un evento o servicio, completa tus datos y recibe al instante tu comprobante de reserva.</p>
+      <div class="acciones">
+        <a class="boton principal" href="#catalogo">Ver eventos y servicios</a>
+        <a class="boton" href="#consulta">Consultar mi comprobante</a>
+      </div>
+    </section>
 
     <h2 id="catalogo">Eventos y servicios</h2>
-    <div class="filtros" role="group" aria-label="Filtrar por tipo">
-      <button type="button" data-filtro="todos" aria-pressed="true">Todos</button>
-      <button type="button" data-filtro="evento" aria-pressed="false">Eventos</button>
-      <button type="button" data-filtro="servicio" aria-pressed="false">Servicios</button>
+    <div class="barra-catalogo">
+      <div class="filtros" role="group" aria-label="Filtrar por tipo">
+        <button type="button" data-filtro="todos" aria-pressed="true">Todos</button>
+        <button type="button" data-filtro="evento" aria-pressed="false">Eventos</button>
+        <button type="button" data-filtro="servicio" aria-pressed="false">Servicios</button>
+      </div>
+      <input type="search" id="buscar" class="buscador" placeholder="Buscar eventos o servicios…" aria-label="Buscar eventos y servicios" autocomplete="off">
     </div>
     <div id="mensaje-catalogo"></div>
     <div id="catalogo-lista" class="rejilla" aria-live="polite"></div>
 
     <h2 id="consulta">Consulta tu comprobante</h2>
-    <form id="form-consulta" class="vertical tarjeta" style="max-width:520px">
+    <form id="form-consulta" class="vertical tarjeta angosto">
       <label>Código de reserva
         <input name="codigo" required placeholder="RES-XXXXXXXX" autocomplete="off">
       </label>
       <label>Correo con el que reservaste
-        <input name="correo" type="email" required autocomplete="email">
+        <input name="correo" type="email" required autocomplete="email" placeholder="nombre@correo.com">
       </label>
       <div class="acciones"><button class="principal" type="submit">Ver comprobante</button></div>
     </form>
@@ -45,30 +55,30 @@
 
   <dialog id="dialogo-reserva" aria-labelledby="titulo-reserva">
     <form id="form-reserva" class="vertical" novalidate>
-      <h2 id="titulo-reserva" style="margin-top:0">Reservar</h2>
+      <h2 id="titulo-reserva">Reservar</h2>
       <p id="resumen-reserva" class="suave"></p>
       <input type="hidden" name="evento_id">
       <div class="dos">
         <label>Cantidad
-          <input name="cantidad" type="number" min="1" max="10" value="1" required>
+          <input name="cantidad" type="number" min="1" max="10" value="1" required inputmode="numeric">
         </label>
         <label>Total estimado
           <input id="total-reserva" readonly tabindex="-1">
         </label>
       </div>
       <label>Nombre completo
-        <input name="nombre" required autocomplete="name" maxlength="100">
+        <input name="nombre" required autocomplete="name" maxlength="100" placeholder="Como figura en tu documento">
       </label>
       <div class="dos">
         <label>Documento
-          <input name="documento" required maxlength="20">
+          <input name="documento" required maxlength="20" placeholder="CI o pasaporte">
         </label>
         <label>Teléfono
-          <input name="telefono" type="tel" required autocomplete="tel">
+          <input name="telefono" type="tel" required autocomplete="tel" placeholder="71234567">
         </label>
       </div>
       <label>Correo electrónico
-        <input name="correo" type="email" required autocomplete="email" maxlength="120">
+        <input name="correo" type="email" required autocomplete="email" maxlength="120" placeholder="nombre@correo.com">
       </label>
       <div id="mensaje-reserva"></div>
       <div class="acciones">

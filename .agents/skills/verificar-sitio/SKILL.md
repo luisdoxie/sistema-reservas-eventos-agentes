@@ -15,7 +15,7 @@ Existe porque las pruebas del backend no detectaron dos fallos del frontend (`hi
      (con un solo `node --check *.js` Node revisa únicamente el primer archivo y los demás pasan sin mirarse)
 2. **Humo con el servidor real**, desde la raíz: `sh .agents/skills/verificar-sitio/humo.sh [puerto]`.
    Arranca `app.py` con una base temporal y un token propio (no toca `datos.db` ni lee secretos), prueba por HTTP las páginas, el catálogo, el admin con y sin token, la reserva, la consulta con correo bueno y malo, que el log no contenga el correo y que un evento pasado no aparezca. Lo apaga al final. Si el puerto está ocupado, pasa otro.
-3. **Interfaz en el navegador** (el humo NO ejecuta el JavaScript): abre el sitio, reserva, mira el comprobante y entra a `/admin.html`. Si no se pudo hacer, escribe "interfaz no verificada" en el reporte.
+3. **Interfaz en el navegador** (el humo NO ejecuta el JavaScript): abre el sitio, reserva, mira el comprobante y entra a `/admin.html`. Si no se pudo hacer, escribe "interfaz no verificada" en el reporte. Consejos: usa un puerto que Chrome no bloquee (no 5060 ni 5061), y para probar el ancho de móvil carga la página en un iframe de unos 390 px, porque cambiar el tamaño de la ventana no modifica el viewport.
 4. **Informa lo que realmente se corrió**: cada capa con su resultado. Si una falló o no se ejecutó, dilo; nunca escribas "verificado" por las demás.
 
 ## Qué no cubre

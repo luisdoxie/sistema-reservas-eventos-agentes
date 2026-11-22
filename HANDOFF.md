@@ -28,13 +28,15 @@ Además: `sh .agents/tests/test-hooks.sh` (desde la raíz) → 6 OK, 0 fallas el
 | Reserva con descuento atómico de cupos, máximo 10 por reserva | Funciona | Pruebas del backend + navegador |
 | Comprobante (código `RES-XXXXXXXX`, titular, evento, total) imprimible | Funciona | Navegador |
 | Consulta del comprobante con código y correo (`POST /api/reservas/consultar`) | Funciona; el correo no va en la URL | Pruebas + navegador + log del servidor sin el correo |
-| Panel `/admin.html` con token: registrar, ajustar cupos, ocultar y ver reservas | Funciona | Navegador |
+| Panel `/admin.html` con token: resumen, registrar, editar completo, ajustar cupos, ocultar y ver y buscar reservas | Funciona | Navegador (2026-11-22) |
 | Cuentas de usuario, pagos, envío del comprobante por correo, cancelación de reservas | No existe | — |
 | Despliegue y producción | No existe; solo servidor de desarrollo de Flask | — |
 | Pruebas del frontend | No hay automatizadas | Solo prueba manual |
 
 ## Decisiones tomadas
 - 2026-11-22: el sitio es para Santa Cruz de la Sierra, Bolivia. Moneda: boliviano (BOB), mostrada como `Bs 1.500` (`MONEDA` y `FORMATO_MONEDA` en `frontend/api.js`). Los precios de demostración se pasaron a bolivianos (Bs 80, Bs 150 y Bs 1.500); solo se aplican a una base nueva, porque la semilla solo corre si la tabla está vacía. Probado en Chrome (catálogo, reserva, comprobante y panel admin). Las fechas siguen en 24 horas (`es`). Los precios siguen siendo enteros, sin centavos.
+
+- 2026-11-22: mejora del frontend, nivel 1 (solo `frontend/`): portada, tarjetas con fecha en bloque e insignias de cupos, buscador, validación en el navegador, "Copiar código", y en el panel resumen, buscador de reservas y edición completa. Sin imágenes por evento, sin QR y sin cambios de API. Probado en Chrome en escritorio y en ancho de móvil (iframe); detalle y límites en `.harness/reportes/2026-11-22-mejora-frontend-nivel1.md`. No probado: tema claro, impresión, teléfono real ni lector de pantalla. Las reglas de validación del formulario existen ahora también en `frontend/index.js`: si cambian en `backend/app.py`, cambiarlas allí.
 
 ## Próximos pasos (en orden)
 1. [x] Crear `backend/venv`, instalar dependencias, correr tests y lint, y arrancar el servidor en esta carpeta (hecho el 2026-11-17).

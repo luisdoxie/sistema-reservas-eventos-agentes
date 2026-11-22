@@ -4,17 +4,18 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Administración de reservas</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%233b5bdb'/%3E%3Ctext x='16' y='23' font-size='20' font-family='sans-serif' font-weight='700' text-anchor='middle' fill='white'%3ER%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
   <header class="sitio">
     <div class="interior">
-      <strong>Administración</strong>
+      <strong class="marca"><span class="logo" aria-hidden="true">R</span>Administración</strong>
       <nav><a href="index.html">Ir al sitio</a></nav>
     </div>
   </header>
   <main>
-    <form id="form-token" class="vertical tarjeta" style="max-width:420px">
+    <form id="form-token" class="vertical tarjeta estrecho">
       <label>Token de administrador
         <input name="token" type="password" required autocomplete="off">
       </label>
@@ -23,10 +24,12 @@
     </form>
 
     <section id="panel" hidden>
-      <div class="acciones" style="justify-content:space-between">
-        <h1 style="margin:0">Panel</h1>
+      <div class="barra-titulo">
+        <h1>Panel</h1>
         <button type="button" id="salir">Salir</button>
       </div>
+
+      <div id="resumen" class="resumen" aria-label="Resumen"></div>
 
       <h2>Registrar evento o servicio</h2>
       <form id="form-evento" class="vertical tarjeta">
@@ -52,17 +55,46 @@
       <h2>Eventos y servicios</h2>
       <div id="mensaje-lista"></div>
       <div class="tabla-scroll"><table>
-        <thead><tr><th>Nombre</th><th>Tipo</th><th>Fecha</th><th>Precio</th><th>Cupos</th><th>Estado</th></tr></thead>
+        <thead><tr><th>Nombre</th><th>Tipo</th><th>Fecha</th><th>Precio</th><th>Cupos</th><th>Estado</th><th>Acciones</th></tr></thead>
         <tbody id="tabla-eventos"></tbody>
       </table></div>
 
       <h2>Reservas recibidas</h2>
+      <input type="search" id="buscar-reservas" class="buscador-tabla" placeholder="Buscar por código, nombre, documento o correo…" aria-label="Buscar reservas" autocomplete="off">
       <div class="tabla-scroll"><table>
         <thead><tr><th>Código</th><th>Evento</th><th>Titular</th><th>Contacto</th><th>Cant.</th><th>Total</th><th>Emitida</th></tr></thead>
         <tbody id="tabla-reservas"></tbody>
       </table></div>
     </section>
   </main>
+
+  <dialog id="dialogo-editar" aria-labelledby="titulo-editar">
+    <form id="form-editar" class="vertical" novalidate>
+      <h2 id="titulo-editar">Editar</h2>
+      <div class="dos">
+        <label>Nombre <input name="nombre" required maxlength="120"></label>
+        <label>Tipo
+          <select name="tipo"><option value="evento">Evento</option><option value="servicio">Servicio</option></select>
+        </label>
+      </div>
+      <div class="dos">
+        <label>Fecha y hora (obligatoria en eventos) <input name="fecha" type="datetime-local"></label>
+        <label>Lugar <input name="lugar" maxlength="150"></label>
+      </div>
+      <div class="dos">
+        <label>Precio (entero, 0 = gratis) <input name="precio" type="number" min="0" step="1" required></label>
+        <label>Cupos <input name="cupos" type="number" min="0" step="1" required></label>
+      </div>
+      <label>Descripción <textarea name="descripcion" rows="3" maxlength="1000"></textarea></label>
+      <p class="suave">Cambiar el precio no modifica los comprobantes ya emitidos.</p>
+      <div id="mensaje-editar"></div>
+      <div class="acciones">
+        <button type="button" id="cancelar-editar">Cancelar</button>
+        <button type="submit" class="principal" id="guardar-editar">Guardar cambios</button>
+      </div>
+    </form>
+  </dialog>
+
   <script src="api.js"></script>
   <script src="admin.js"></script>
 </body>

@@ -6,12 +6,25 @@ function fila(titulo, valor) {
   return [el("dt", {}, titulo), el("dd", {}, valor)];
 }
 
+async function copiarCodigo(boton, texto) {
+  try {
+    await navigator.clipboard.writeText(texto);
+    boton.textContent = "¡Copiado!";
+  } catch {
+    boton.textContent = "No se pudo copiar";
+  }
+  setTimeout(() => { boton.textContent = "Copiar código"; }, 2000);
+}
+
 function pintarComprobante(r) {
   document.title = "Comprobante " + r.codigo;
   contenedor.replaceChildren(el("section", { class: "comprobante", "aria-label": "Comprobante de reserva" },
     el("span", { class: "sello" }, "Reserva confirmada"),
-    el("p", { class: "suave", style: "margin-bottom:0" }, "Código de reserva"),
-    el("div", { class: "codigo" }, r.codigo),
+    el("p", { class: "suave sin-margen" }, "Código de reserva"),
+    el("div", { class: "fila-codigo" },
+      el("div", { class: "codigo" }, r.codigo),
+      el("button", { class: "no-imprimir", type: "button", "aria-live": "polite",
+                     onclick: (ev) => copiarCodigo(ev.currentTarget, r.codigo) }, "Copiar código")),
     el("h2", {}, "Datos del titular"),
     el("dl", {},
       fila("Nombre", r.nombre), fila("Documento", r.documento),
@@ -44,7 +57,7 @@ async function cargar(correo) {
 
 // Si no tenemos el correo (por ejemplo, otro dispositivo), lo pedimos: el código solo no basta.
 function pedirCorreo() {
-  contenedor.replaceChildren(el("form", { class: "vertical tarjeta", style: "max-width:420px", onsubmit: (ev) => {
+  contenedor.replaceChildren(el("form", { class: "vertical tarjeta estrecho", onsubmit: (ev) => {
     ev.preventDefault();
     cargar(ev.target.elements.correo.value.trim().toLowerCase());
   } },

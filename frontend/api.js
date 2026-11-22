@@ -44,9 +44,14 @@ function el(etiqueta, atributos = {}, ...hijos) {
   return nodo;
 }
 
-function dinero(valor) {
-  if (valor === 0) return "Gratis";
+// Monto siempre con moneda ("Bs 0" incluido); para totales y sumas.
+function monto(valor) {
   return new Intl.NumberFormat(FORMATO_MONEDA, { style: "currency", currency: MONEDA, maximumFractionDigits: 0 }).format(valor);
+}
+
+// Precio de un evento o servicio: el 0 se muestra como "Gratis".
+function dinero(valor) {
+  return valor === 0 ? "Gratis" : monto(valor);
 }
 
 function fechaLarga(iso) {
@@ -54,15 +59,40 @@ function fechaLarga(iso) {
   return new Date(iso).toLocaleString("es", { dateStyle: "full", timeStyle: "short" });
 }
 
+// Partes de una fecha para mostrarla en bloque: { dia: "2", mes: "dic", diaSemana: "miércoles", hora: "19:00" }.
+function partesFecha(iso) {
+  const f = new Date(iso);
+  return {
+    dia: String(f.getDate()),
+    mes: f.toLocaleDateString("es", { month: "short" }).replace(".", ""),
+    diaSemana: f.toLocaleDateString("es", { weekday: "long" }),
+    hora: f.toLocaleTimeString("es", { hour: "2-digit", minute: "2-digit", hour12: false }),
+  };
+}
+
+// Minúsculas y sin tildes, para buscar "musica" y encontrar "música".
+function normalizar(texto) {
+  return String(texto ?? "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+}
+
 function mostrarMensaje(contenedor, texto, tipo = "error") {
   contenedor.replaceChildren(texto ? el("p", { class: "mensaje " + tipo, role: "alert" }, texto) : "");
 }
 
 // Muestra los errores por campo (los devuelve la API en error.campos).
+// Cada campo con error queda marcado con aria-invalid y enlazado a su mensaje (aria-describedby).
 function mostrarErroresCampos(formulario, campos) {
   formulario.querySelectorAll(".error-campo").forEach((n) => n.remove());
+  formulario.querySelectorAll("[aria-invalid]").forEach((n) => {
+    n.removeAttribute("aria-invalid");
+    if ((n.getAttribute("aria-describedby") || "").startsWith("err-")) n.removeAttribute("aria-describedby");
+  });
   for (const [nombre, texto] of Object.entries(campos || {})) {
     const entrada = formulario.elements[nombre];
-    if (entrada) entrada.closest("label")?.append(el("small", { class: "error-campo" }, texto));
+    if (!entrada) continue;
+    const id = `err-${formulario.id || "form"}-${nombre}`;
+    entrada.closest("label")?.append(el("small", { class: "error-campo", id }, texto));
+    entrada.setAttribute("aria-invalid", "true");
+    entrada.setAttribute("aria-describedby", id);
   }
 }
