@@ -1,5 +1,8 @@
 // Utilidades compartidas por todas las páginas.
-const MONEDA = "COP"; // Cambia aquí la moneda que muestra el sitio (los precios son enteros).
+// Sitio para Santa Cruz de la Sierra, Bolivia: boliviano (BOB). Si cambias la moneda, cambia también FORMATO_MONEDA
+// (el idioma-país con que se escribe el número, por ejemplo "es-BO" para "Bs 1.500"). Los precios son enteros.
+const MONEDA = "BOB";
+const FORMATO_MONEDA = "es-BO";
 
 async function api(ruta, { metodo = "GET", cuerpo, token } = {}) {
   const cabeceras = { "Content-Type": "application/json" };
@@ -43,7 +46,7 @@ function el(etiqueta, atributos = {}, ...hijos) {
 
 function dinero(valor) {
   if (valor === 0) return "Gratis";
-  return new Intl.NumberFormat("es", { style: "currency", currency: MONEDA, maximumFractionDigits: 0 }).format(valor);
+  return new Intl.NumberFormat(FORMATO_MONEDA, { style: "currency", currency: MONEDA, maximumFractionDigits: 0 }).format(valor);
 }
 
 function fechaLarga(iso) {

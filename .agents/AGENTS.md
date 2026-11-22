@@ -37,7 +37,7 @@ Usar la skill `ciclo-de-mejora`.
 - El comprobante guarda una copia de los datos del evento y el precio al reservar: editar el evento después no cambia comprobantes emitidos.
 - Consultar un comprobante exige código y correo, por `POST` (el correo no debe ir en la URL ni en los logs). Si no coinciden, la respuesta es igual a la de un código inexistente.
 - Las rutas `/api/admin/*` exigen `X-Admin-Token`. El token vive en `backend/.env` (`ADMIN_TOKEN`); no leerlo ni mostrarlo.
-- Los precios son enteros (sin decimales). La moneda que se muestra está en `MONEDA` de `frontend/api.js`.
+- El sitio es para Santa Cruz de la Sierra, Bolivia (decidido por la persona el 2026-11-22): moneda boliviano (BOB), que se muestra como `Bs 1.500`. Se configura con `MONEDA` y `FORMATO_MONEDA` de `frontend/api.js`; si cambia una, cambia la otra. Los precios son enteros (sin decimales).
 
 ## Mapa del harness
 | Dimensión | Archivo |

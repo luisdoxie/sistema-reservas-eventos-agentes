@@ -334,11 +334,11 @@ def sembrar(conexion):
     hoy = datetime.now().replace(hour=19, minute=0, second=0, microsecond=0)
     demo = [
         ("Concierto de música andina", "evento", "Una noche de música en vivo con artistas locales.",
-         (hoy + timedelta(days=21)).isoformat(timespec="minutes"), "Teatro Municipal", 45000, 120),
+         (hoy + timedelta(days=21)).isoformat(timespec="minutes"), "Teatro Municipal", 80, 120),
         ("Taller de fotografía", "evento", "Aprende composición y luz natural. Trae tu cámara o celular.",
-         (hoy + timedelta(days=10)).isoformat(timespec="minutes"), "Casa de la Cultura", 30000, 25),
+         (hoy + timedelta(days=10)).isoformat(timespec="minutes"), "Casa de la Cultura", 150, 25),
         ("Alquiler de sonido e iluminación", "servicio", "Equipo profesional para tu evento, con técnico incluido.",
-         None, "A domicilio", 250000, 10),
+         None, "A domicilio", 1500, 10),
     ]
     conexion.executemany(
         "INSERT INTO eventos (nombre, tipo, descripcion, fecha, lugar, precio, cupos) VALUES (?,?,?,?,?,?,?)", demo)

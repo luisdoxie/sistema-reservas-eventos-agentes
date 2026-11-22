@@ -1,6 +1,7 @@
 # Estado — foco actual (se reescribe cada sesión · 3-10 KB)
 
-- Fecha: 2026-11-21
-- Foco actual: análisis del proyecto y primer ciclo completo de mejora en `reservas-eventos-harness`. Hecho: `git init` (rama `main`) y commit inicial de 50 archivos; corrección del catálogo para no ofrecer eventos pasados (21 pruebas OK, ruff limpio); reporte en `.harness/reportes/2026-11-21-eventos-pasados.md`.
-- Próximo paso concreto: la persona revisa y confirma `IDENTIDAD.md` y `PREFERENCIAS.md` (son borradores) . Luego: skill propia, propuesta de mejora al template y repetir `harness audit .`.
-- Bloqueos: ninguno. Los cambios están en commit (incluido `.gitattributes`); la interfaz no se probó en el navegador en esta sesión.
+- Fecha: 2026-11-22
+- Última decisión: el sitio es para Santa Cruz, Bolivia; moneda boliviano (BOB, `Bs 1.500`) y precios de demostración en bolivianos. Probado en Chrome; sin commit.
+- Foco actual: verificación de `reservas-eventos-harness`. Hecho: skill propia `verificar-sitio` (con `humo.sh`, 14 OK), evidencia de hooks en `RUNTIME.md` (6 OK en Git Bash), comando `node --check` corregido en 3 documentos, y prueba de la interfaz en Chrome (reserva, comprobante, consulta, panel admin, filtros, evento pasado oculto, HTML mostrado como texto); reporte en `.harness/reportes/2026-11-22-prueba-interfaz.md`. 21 pruebas OK y ruff limpio.
+- Próximo paso concreto: la persona confirma `IDENTIDAD.md` y `PREFERENCIAS.md` (son borradores) y corre a mano el test de hooks en PowerShell (`.agents/tests/test-hooks.ps1`). Luego: propuesta de mejora al template, repetir `harness audit .` y decidir si la skill va también en `.claude/skills/`.
+- Bloqueos: ninguno. La prueba de hooks en PowerShell no se pudo ejecutar desde la sesión (permiso denegado). La interfaz no se probó en móvil, ni la impresión, ni el estado "Agotado".
