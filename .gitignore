@@ -5,3 +5,7 @@
 venv/
 __pycache__/
 *.pyc
+
+# Memoria personal del agente (borradores sin confirmar): no se publica
+.agents/memory/IDENTIDAD.md
+.agents/memory/PREFERENCIAS.md
