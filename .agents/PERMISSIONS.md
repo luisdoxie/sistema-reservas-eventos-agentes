@@ -6,7 +6,7 @@
 ## Verde — permitir sin preguntar
 - Leer archivos, listar, buscar
 - `git status`, `git diff`, `git log`
-- Correr tests y lint locales, desde `backend/`: `python -m unittest discover -s tests`, `python -m ruff check . --exclude venv` y `node --check ../frontend/*.js`
+- Correr tests y lint locales, desde `backend/`: `python -m unittest discover -s tests`, `python -m ruff check . --exclude venv` y, para la sintaxis del JavaScript, un `node --check` por archivo: `for f in ../frontend/*.js; do node --check "$f" || echo "FALLA $f"; done` (con un solo `node --check *.js` Node revisa únicamente el primero)
 
 ## Amarillo — preguntar siempre
 - Instalar dependencias (`npm install`, `pip install`, ...)

@@ -11,7 +11,7 @@
 | Base de datos | Dónde vive y cómo se conecta | SQLite, archivo `backend/datos.db` (ruta con `DB_PATH`). El esquema se crea al arrancar; sin servidor ni migraciones. Con `SEMILLA_DEMO=1` carga 3 eventos de ejemplo si está vacía |
 | Servidor | Cómo arranca | `python app.py` desde `backend/` sirve API y frontend en `http://127.0.0.1:5000` (puerto con `PORT`). Por defecto solo escucha en la propia máquina; con `APP_HOST=0.0.0.0` (en `backend/.env`) también por la IP de red, en `http://<IP>:5000` (verificado el 2026-11-17). Servidor de desarrollo de Flask, sin HTTPS, no apto para producción |
 | Tests | Comando y qué necesitan instalado | Desde `backend/`: `python -m unittest discover -s tests`. Necesita Python 3 y Flask (`pip install -r requirements.txt`). Usan una base SQLite temporal. El frontend no tiene pruebas automatizadas |
-| Lint | Comando y qué necesitan instalado | Desde `backend/`: `python -m ruff check . --exclude venv` (ruff 0.17.5, en `requirements-dev.txt`) y `node --check ../frontend/*.js` para la sintaxis del JavaScript (Node v24) |
+| Lint | Comando y qué necesitan instalado | Desde `backend/`: `python -m ruff check . --exclude venv` (ruff 0.17.5, en `requirements-dev.txt`) y, para la sintaxis del JavaScript (Node v24), un `node --check` por archivo: `for f in ../frontend/*.js; do node --check "$f" || echo "FALLA $f"; done`. No uses `node --check ../frontend/*.js`: con varios archivos Node revisa solo el primero |
 
 ## Verificación de hooks
 - Fecha: 2026-11-17 · Comando: `.agents/tests/test-hooks.sh` · Resultado: 6 OK, 0 fallas (SO: MINGW64_NT-10.0-26300). Las líneas que dejó en `hooks.log` vienen de este test, no de una sesión real de Claude Code.

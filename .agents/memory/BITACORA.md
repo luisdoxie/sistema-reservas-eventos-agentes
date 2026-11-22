@@ -9,3 +9,4 @@ Formato: `AAAA-MM-DD · qué se hizo · resultado`. El hook de fin agrega una l�
 2026-11-21 · sesión cerrada (completar qué se hizo)
 2026-11-21 · sesión cerrada (completar qué se hizo)
 2026-11-22 · skill propia verificar-sitio (SKILL.md + humo.sh), evidencia de hooks en RUNTIME.md, lección sobre node --check · humo 14 OK, 21 pruebas OK, ruff limpio; PowerShell de hooks no verificado (permiso denegado) e interfaz sin probar en navegador
+2026-11-22 · corregido el comando de node --check (un archivo por vez, con bucle) en HANDOFF, PERMISSIONS y RUNTIME · los 3 documentos coinciden con la skill verificar-sitio
