@@ -38,6 +38,8 @@ Además: `sh .agents/tests/test-hooks.sh` (desde la raíz) → 6 OK, 0 fallas el
 
 - 2026-11-22: mejora del frontend, nivel 1 (solo `frontend/`): portada, tarjetas con fecha en bloque e insignias de cupos, buscador, validación en el navegador, "Copiar código", y en el panel resumen, buscador de reservas y edición completa. Sin imágenes por evento, sin QR y sin cambios de API. Probado en Chrome en escritorio y en ancho de móvil (iframe); detalle y límites en `.harness/reportes/2026-11-22-mejora-frontend-nivel1.md`. No probado: tema claro, impresión, teléfono real ni lector de pantalla. Las reglas de validación del formulario existen ahora también en `frontend/index.js`: si cambian en `backend/app.py`, cambiarlas allí.
 
+- 2026-11-22: publicado en GitHub como repositorio **público**: https://github.com/luisdoxie/sistema-reservas-eventos-agentes (rama `main`, licencia MIT, remoto `origin`). Antes de publicar se reescribió el historial para usar el correo "noreply" de GitHub y se sacaron del historial `IDENTIDAD.md` y `PREFERENCIAS.md`; siguen solo en esta carpeta (están en `.gitignore`). Los hashes de commits anteriores a esa fecha ya no existen. El README describe la arquitectura de agentes. `harness sync` NO se aplicó: la versión actual del template distribuye los archivos de otra forma y reemplazaría el `AGENTS.md` de la raíz; ese archivo se regeneró a mano (cabecera + `.agents/AGENTS.md`).
+
 ## Próximos pasos (en orden)
 1. [x] Crear `backend/venv`, instalar dependencias, correr tests y lint, y arrancar el servidor en esta carpeta (hecho el 2026-11-17).
 2. [ ] La persona confirma `memory/IDENTIDAD.md` y `memory/PREFERENCIAS.md` (son borradores).
@@ -45,7 +47,7 @@ Además: `sh .agents/tests/test-hooks.sh` (desde la raíz) → 6 OK, 0 fallas el
 4. [x] Skill propia `verificar-sitio` creada el 2026-11-22 en `.agents/skills/verificar-sitio/` (`SKILL.md` + `humo.sh`). Probada: `humo.sh` 14 OK con el servidor real y base temporal; sus pasos de pruebas y lint también pasan. Interfaz en el navegador probada el 2026-11-22 (reporte en `.harness/reportes/`). Las skills de `.agents/skills/` no aparecen en la lista de skills de Claude Code; para invocarla con `/verificar-sitio` habría que copiarla a `.claude/skills/`.
 5. [x] `git init` y commit inicial hechos el 2026-11-21 (rama `main`, sin repositorio remoto). Commits del cambio de eventos pasados y de `.gitattributes` (`*.sh text eol=lf`, para que los hooks `.sh` no queden en CRLF) hechos el 2026-11-21.
 6. [x] Ciclo completo hecho el 2026-11-21 (catálogo sin eventos pasados); reporte en `.harness/reportes/2026-11-21-eventos-pasados.md`.
-7. [ ] Escribir una propuesta de mejora al template en `.harness/propuestas/`.
+7. [x] Propuesta de mejora al template escrita el 2026-11-24 en `.harness/propuestas/2026-11-24-hooks-y-deteccion-de-proyecto.md` (3 problemas con evidencia). No se envió ni se aplicó al template: falta que la persona la revise.
 8. [ ] Correr `harness audit` y guardar la auditoría "después" en `.harness/auditorias/`.
 
 ## Preguntas abiertas para el humano
