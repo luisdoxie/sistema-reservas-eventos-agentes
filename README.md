@@ -80,9 +80,9 @@ flowchart TD
     S2 -->|"antes de cada herramienta"| S3["PreToolUse: permite o bloquea"]
     S3 --> S4["PostToolUse: registra"]
     S4 --> S2
-    S2 --> S5["Stop: registra el cierre"]
+    S2 -->|"al terminar cada respuesta"| S5["Stop: anota en hooks.log"]
   end
-  S5 --> M["Memoria: ESTADO, LECCIONES, BITACORA, HANDOFF"]
+  S2 -->|"al cerrar, el agente escribe"| M["Memoria: ESTADO, LECCIONES, BITACORA, HANDOFF"]
   M -->|"la próxima sesión parte de aquí"| S1
 ```
 
@@ -115,7 +115,7 @@ Cuatro eventos de Claude Code, cada uno con su script en `.agents/hooks/`, en `.
 | `SessionStart` | Muestra al agente el ESTADO y las LECCIONES, y avisa si quedan archivos del harness con TODO |
 | `PreToolUse` | Registra la llamada y **bloquea** las que tocan archivos de secretos o son destructivas. También bloquea una entrada vacía. Revisa el texto crudo, sin depender de `jq`, para no fallar abierto |
 | `PostToolUse` | Registra la llamada; tras escribir o editar, recuerda actualizar el ESTADO |
-| `Stop` | Registra el cierre y deja en la bitácora una línea para completar |
+| `Stop` | Se dispara al terminar cada respuesta; solo anota en `hooks.log`. La línea de la bitácora la escribe el agente al cerrar la sesión |
 
 Los hooks escriben en `.agents/hooks.log` (local, no se versiona). `.agents/tests/test-hooks.sh` los prueba: un hook roto rompe todas las sesiones.
 
@@ -149,11 +149,11 @@ Viven en `.agents/skills/`:
 Este harness se mantiene con honestidad sobre lo que no está comprobado:
 
 - **Template.** La CLI y el template no están en este repositorio. El proyecto no tiene el archivo de registro `.harness.json`, y una simulación de `harness sync` (2026-11-22) mostró que la versión actual del template distribuye los archivos de otra forma (carpeta `agents/` en minúscula y un hook en Python). Por eso no se aplicó, y el `AGENTS.md` de la raíz se regeneró a mano copiando lo que hace el generador.
-- **Hooks en PowerShell.** Solo se probaron los `.sh` (6 pruebas OK en Git Bash). La variante de PowerShell no está verificada.
-- **Hook `Stop`.** Deja una línea por turno y no una por sesión, así que hay que limpiar la bitácora a mano. Es la primera candidata para una propuesta de mejora al template.
+- **Hooks en PowerShell.** Solo se probaron los `.sh` (9 comprobaciones OK en Git Bash, 2026-11-27). De la variante de PowerShell solo se probó `stop.ps1` (a mano, 2026-11-27); los demás hooks y `settings.windows.json` no están verificados.
+- **Bitácora.** Desde el 2026-11-27 ningún hook la escribe: depende de que el agente cumpla la regla de `AGENTS.md`. El template conserva el comportamiento anterior del hook `Stop`.
 - **Skills.** Las de `.agents/skills/` son una convención del harness; no aparecen como comandos de Claude Code a menos que se copien a `.claude/skills/`.
 - **Frontend.** No tiene pruebas automatizadas; la interfaz se probó a mano en Chrome (escritorio y ancho de móvil), sin revisar el tema claro, la impresión ni un teléfono real.
-- **Auditoría.** La última `harness audit` es del 2026-11-17, anterior a los cambios posteriores.
+- **Auditoría.** La última `harness audit` es del 2026-11-27 y sale "incompleto": no faltan archivos, pero cuenta 7 menciones de la palabra que busca, que no son pendientes.
 - **Memoria personal.** `IDENTIDAD.md` y `PREFERENCIAS.md` siguen sin confirmar.
 
 ## Pruebas

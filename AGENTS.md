@@ -24,7 +24,7 @@ Usar la skill `ciclo-de-mejora`.
 
 ## Al terminar cada sesión
 1. Actualizar `HANDOFF.md` y `memory/ESTADO.md` con la fecha.
-2. Completar la línea de `memory/BITACORA.md` que deja el hook de fin.
+2. Agregar una línea a `memory/BITACORA.md` con lo que se hizo y el resultado (ningún hook la escribe).
 
 ## Reglas
 - No declarar "verificado" algo que no se pudo ejecutar: escribir "no verificado" y por qué.

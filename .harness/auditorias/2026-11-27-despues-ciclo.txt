@@ -1,0 +1,6 @@
+Auditoría de /c/Desarrollo/observatorio/proyecto/reservas-eventos-harness — 2026-11-27 22:33
+  TODO x1  ./.agents/memory/BITACORA.md
+  TODO x5  ./.harness/propuestas/2026-11-24-hooks-y-deteccion-de-proyecto.md
+  TODO x1  ./README.md
+Resumen: faltan=0  TODO=7  lecciones=13  lineas_hooks.log=701
+ESTADO: incompleto

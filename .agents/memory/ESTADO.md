@@ -1,9 +1,11 @@
 # Estado — foco actual (se reescribe cada sesión · 3-10 KB)
 
-- Fecha: 2026-11-22
-- Publicado: repositorio público https://github.com/luisdoxie/sistema-reservas-eventos-agentes (historial reescrito con correo noreply; memoria personal solo local). Cambios posteriores a la publicación hay que subirlos con `git push` (pide confirmación).
-- Hecho hoy: mejora del frontend, nivel 1, probada en Chrome (escritorio y ancho de móvil); reporte en `.harness/reportes/2026-11-22-mejora-frontend-nivel1.md`.
-- Última decisión: el sitio es para Santa Cruz, Bolivia; moneda boliviano (BOB, `Bs 1.500`) y precios de demostración en bolivianos. Probado en Chrome; sin commit.
-- Foco actual: verificación de `reservas-eventos-harness`. Hecho: skill propia `verificar-sitio` (con `humo.sh`, 14 OK), evidencia de hooks en `RUNTIME.md` (6 OK en Git Bash), comando `node --check` corregido en 3 documentos, y prueba de la interfaz en Chrome (reserva, comprobante, consulta, panel admin, filtros, evento pasado oculto, HTML mostrado como texto); reporte en `.harness/reportes/2026-11-22-prueba-interfaz.md`. 21 pruebas OK y ruff limpio.
-- Próximo paso concreto: la persona confirma `IDENTIDAD.md` y `PREFERENCIAS.md` (son borradores) y corre a mano el test de hooks en PowerShell (`.agents/tests/test-hooks.ps1`). Luego: propuesta de mejora al template, repetir `harness audit .` y decidir si la skill va también en `.claude/skills/`.
-- Bloqueos: ninguno. La prueba de hooks en PowerShell no se pudo ejecutar desde la sesión (permiso denegado). La interfaz no se probó en móvil, ni la impresión, ni el estado "Agotado".
+- Fecha: 2026-11-27
+- Publicado: repositorio público https://github.com/luisdoxie/sistema-reservas-eventos-agentes (historial reescrito con correo noreply; memoria personal solo local). Para subir cambios: `git push` (pide confirmación).
+- Hecho hoy: ciclo de la Clase 4 sobre el hook `stop`, que ya no escribe en la bitácora. Hooks 9 OK, 21 pruebas OK, lint limpio, 1 reintento. Reporte (incluye métricas y la tarea con varios agentes) en `.harness/reportes/2026-11-27-ciclo-clase4.md`. La persona pidió el commit y el push a `main`.
+- Sitio: Santa Cruz, Bolivia; moneda boliviano (BOB, `Bs 1.500`).
+- Comprobado en sesión real: 10 `stop` después del cambio y ninguna línea "completar" nueva. `stop.ps1`: probado por la persona sobre una carpeta temporal (salida 0, bitácora sin cambios, 2 líneas en el log).
+- Próximo paso concreto: la persona decide si el cambio de `stop` va a la plantilla y cómo resolver las marcas de la auditoría.
+- Pendientes de la persona: confirmar `IDENTIDAD.md` y `PREFERENCIAS.md` (borradores) y correr a mano `.agents/tests/test-hooks.ps1`.
+- Bloqueos: ninguno. No verificado: los demás hooks de PowerShell y `settings.windows.json`. La interfaz no se probó en teléfono real, ni la impresión, ni el tema claro.
+- Auditoría: "incompleto" por 7 menciones de la palabra que busca; no faltan archivos.
